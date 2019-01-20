@@ -5,18 +5,40 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- Link Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <!-- Name this Single Page Application (see in browser tab) -->
   <title>The Best Directory</title>
 </head>
 
 
 <body>
+  <div class="container">
+    <div class="row">
+        <nav id = "nav" class="col-3">
+            <div id = "viewBtn" >View</div>
+            <div id = "addBtn" >Add</div>
+            <div id="deleteBtn">Delete</div>
+            <div id="updateBtn">Update</div>
+            <div id="verifyBtn">Verify</div>
+          </nav>
+        <div class="col main">
+            <div class="add"></div>
+            <div class="verify"></div>
+            <div class="empList"></div>
+        </div>
+
+    </div>
+  </div>
+  
+
+
   <!-- Link the dom.js file that I will make from scratch -->
   <script src="dom.js"></script>
   <!-- Link the employee data that is given as an array of objects -->
   <script src="employeeList.js"></script>
   <!-- Create and link the app.js file -->
-  <script> src="app.js"</script>
+  <script src="app.js"></script>
 </body>
 
 </html>

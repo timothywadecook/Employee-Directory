@@ -69,6 +69,12 @@ const $ = function (selector) {
     };
   }
 
+  const show = function() {
+    for (let i = 0; i < nodeList.length; i++) {
+      nodeList[i].style.display = 'initial';
+    };
+  }
+
   return {
     text: text,
     html: html,
@@ -81,5 +87,6 @@ const $ = function (selector) {
     on: on,
     val: val,
     hide: hide,
+    show: show,
   };
 }
