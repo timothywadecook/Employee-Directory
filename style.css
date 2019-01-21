@@ -1,18 +1,22 @@
 
 #navTitle {
-    color: #234099;
+    color: #3e4666;
     text-align: center;
     padding: 30px 10px;
 }
 #nav {
-    background-color: #f5f5dc;
+    background-color: #F5F5F5;
     height: 100vw;
     padding: 0;
 }
 .nav-link {
-    color: #234099;
+    color: #3e4666;
+    font-size: 20px;
 }
 
 .nav-pills > li > a.active {
-    background-color: #234099 !important;
+    background-color: #3e4666 !important;
+}
+.empList {
+    color: #3e4666;
 }
