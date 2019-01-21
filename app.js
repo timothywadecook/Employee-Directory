@@ -16,6 +16,8 @@ const homePage = $('#nav').show();
 
 const showView = function() {
     $('.main').show();
+    $('.add').hide();
+    $('.verify').hide();
     $('.nav-link').removeClass('active');
     $('#viewBtn').addClass('active')
 }
@@ -23,20 +25,29 @@ const showAdd = function() {
     $('.nav-link').removeClass('active');
     $('#addBtn').addClass('active');
     $('.main').show();
-    showAddForm();
     $('.add').show();
+    $('.verify').hide();
 }
 const showDelete = function() {
     $('.nav-link').removeClass('active');
     $('#deleteBtn').addClass('active');
+    $('.main').show();
+    $('.add').hide();
+    $('.verify').hide();
 }
 const showUpdate = function() {
     $('.nav-link').removeClass('active');
     $('#updateBtn').addClass('active');
+    $('.main').show();
+    $('.add').hide();
+    $('.verify').hide();
 }
 const showVerify = function() {
     $('.nav-link').removeClass('active');
     $('#verifyBtn').addClass('active');
+    $('.main').show();
+    $('.add').hide();
+    $('.verify').show();
 }
 
 
@@ -84,20 +95,41 @@ const successAlert = function(action) {
 </div>`);
 }
 
-
+// Create the input form to Add new contacts to the database
+// Take in Full Name - Office Num - Phone Number then click "Add" to finish and see result
 const showAddForm = function() {
-    $('.add').append(`<form>
+    $('.add').append(`<form id="addForm">
  <div class="form-row">
       <div class="col">
-        <input type="text" class="form-control" placeholder="Full Name">
+        <input type="text" id="addName" class="form-control" placeholder="Full Name">
       </div>
       <div class="col">
-        <input type="text" class="form-control" placeholder="Office Num">
+        <input type="text" id="addOfficeNum" class="form-control" placeholder="Office Num">
       </div>
       <div class="col">
-        <input type="text" class="form-control" placeholder="Phone Number">
+        <input type="text" id="addPhoneNum" class="form-control" placeholder="Phone Number">
       </div>
-      <button type="submit" class="btn btn-primary">Add</button>
+      <button type="submit" id="addSubmitBtn" class="btn btn-primary">Add</button>
  </div>
 </form>`);
 };
+
+showAddForm();
+
+// Create doAdd function to create a new employee and append the employeeList 
+const doAdd = function() {
+    console.log(document.getElementById('#addName'));
+    console.log(document.getElementById('addOfficeNum'));
+    console.log(document.getElementById('addPhoneNum'));
+    // let name = document.getElementById('#addName').value;
+    // let officeNum = document.getElementById('#addOfficeNum').value;
+    // let phoneNum = document.getElementById('#addPhoneNum').value;
+    // let object = {name: name, officeNum: officeNum, phoneNum: phoneNum,};
+    // appendList(object);
+    successAlert('added a new contact.');
+    showView();
+}
+
+
+// add event listener to "Add" Button for add input form
+// $('#addSubmitBtn').on('click', doAdd)
