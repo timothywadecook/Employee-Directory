@@ -16,18 +16,24 @@ const homePage = $('#nav').show();
 
 const showView = function() {
     $('.main').show();
+    $('.nav-link').removeClass('active');
+    $('#viewBtn').addClass('active')
 }
 const showAdd = function() {
-
+    $('.nav-link').removeClass('active');
+    $('#addBtn').addClass('active');
 }
 const showDelete = function() {
-
+    $('.nav-link').removeClass('active');
+    $('#deleteBtn').addClass('active');
 }
 const showUpdate = function() {
-
+    $('.nav-link').removeClass('active');
+    $('#updateBtn').addClass('active');
 }
 const showVerify = function() {
-
+    $('.nav-link').removeClass('active');
+    $('#verifyBtn').addClass('active');
 }
 
 
@@ -37,15 +43,15 @@ const showVerify = function() {
 // Add event listener to each button to show respective page elements when clicked
 $('#viewBtn').on('click', showView)
 $('#addBtn').on('click', showAdd)
-$('deleteBtn').on('click', showDelete)
-$('updateBtn').on('click', showUpdate)
-$('verifyBtn').on('click', showVerify)
+$('#deleteBtn').on('click', showDelete)
+$('#updateBtn').on('click', showUpdate)
+$('#verifyBtn').on('click', showVerify)
 
 
 
 // Function that takes an object with three properties and creates the HTML for a *Bootstrap* card that will be in a card deck
 const cardHTMLMaker = function(contactObj) {
-    const cardHTML = `<div class="card col-6 m-3">
+    const cardHTML = `<div class="card col-5 m-3 border-0 float-left shadow p-3 bg-white rounded">
  <div class="card-body">
  <h5 class="card-title">${contactObj.name}</h5>
  <p class="card-text"><strong>Office Number: </strong>${contactObj.officeNum}</p>
@@ -63,3 +69,14 @@ const appendList = function(employeeList) {
 }
 
 appendList(employeeList)
+
+
+// Create a function that takes in a string like "updated the contact" and appends the 
+// Main Div in Index HTML to alert "Great! You successfully updated the contact"
+// Make alert dismissible and fade out
+const successAlert = function(action) {
+    $('.main').prepend( `<div class="alert alert-success alert-dismissible fade in">
+ <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+ <strong>Great!</strong> You successfully ${action}.
+</div>`);
+}

@@ -7,21 +7,26 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <!-- Link Bootstrap -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <!-- Link style.css -->
+  <link rel="stylesheet" type="text/css" href="style.css">
   <!-- Name this Single Page Application (see in browser tab) -->
   <title>The Best Directory</title>
 </head>
 
 
 <body>
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
-        <nav id = "nav" class="col-3">
-            <div id = "viewBtn" >View</div>
-            <div id = "addBtn" >Add</div>
-            <div id="deleteBtn">Delete</div>
-            <div id="updateBtn">Update</div>
-            <div id="verifyBtn">Verify</div>
-          </nav>
+        <div id = "nav" class="col-3">
+          <ul class="nav nav-pills flex-column nav-fill">
+            <li><h3 id="navTitle">Employee Directory</h3></li>
+            <li class="nav-item" ><a id = "viewBtn" class="nav-link" href='#'>View</a></li>
+            <li class="nav-item" ><a id = "addBtn" class="nav-link" href='#'>Add</a></li>
+            <li class="nav-item" ><a id= "deleteBtn" class="nav-link" href='#'>Delete</a></li>
+            <li class="nav-item" ><a id= "updateBtn" class="nav-link" href='#'>Update</a></li>
+            <li class="nav-item" ><a id= "verifyBtn" class="nav-link" href='#'>Verify</a></li>
+          </ul>
+        </div>
         <div class="col main">
             <div class="add"></div>
             <div class="verify"></div>
