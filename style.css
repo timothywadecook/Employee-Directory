@@ -20,3 +20,9 @@
 .empList {
     color: #3e4666;
 }
+.btn-primary {
+    background-color:  #3e4666 !important;
+}
+.form-row {
+    padding: 10px;
+}

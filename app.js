@@ -22,6 +22,9 @@ const showView = function() {
 const showAdd = function() {
     $('.nav-link').removeClass('active');
     $('#addBtn').addClass('active');
+    $('.main').show();
+    showAddForm();
+    $('.add').show();
 }
 const showDelete = function() {
     $('.nav-link').removeClass('active');
@@ -51,7 +54,7 @@ $('#verifyBtn').on('click', showVerify)
 
 // Function that takes an object with three properties and creates the HTML for a *Bootstrap* card that will be in a card deck
 const cardHTMLMaker = function(contactObj) {
-    const cardHTML = `<div class="card col-5 m-3 border-0 float-left shadow p-3 bg-white rounded">
+    const cardHTML = `<div class="card col-10 col-lg-5 col-md-8 m-3 border-0 float-left shadow p-3 bg-white rounded">
  <div class="card-body">
  <h5 class="card-title">${contactObj.name}</h5>
  <p class="card-text"><strong>Office Number: </strong>${contactObj.officeNum}</p>
@@ -80,3 +83,21 @@ const successAlert = function(action) {
  <strong>Great!</strong> You successfully ${action}.
 </div>`);
 }
+
+
+const showAddForm = function() {
+    $('.add').append(`<form>
+ <div class="form-row">
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Full Name">
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Office Num">
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Phone Number">
+      </div>
+      <button type="submit" class="btn btn-primary">Add</button>
+ </div>
+</form>`);
+};
