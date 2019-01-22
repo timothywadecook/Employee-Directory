@@ -6,7 +6,7 @@
 }
 #nav {
     background-color: #F5F5F5;
-    height: 100vw;
+    height: 100vh;
     padding: 0;
 }
 .nav-link {
@@ -25,4 +25,13 @@
 }
 .form-row {
     padding: 10px;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.overflow-scroll {
+    overflow: scroll;
+    height: 100vh;
 }

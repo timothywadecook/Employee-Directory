@@ -27,12 +27,14 @@ const showAdd = function() {
     $('#addBtn').addClass('active');
     $('.main').show();
     $('.add').show();
+    $('#addSubmitBtn').on('click', doAdd)
     $('.delete').hide();
     $('.verify').hide();
 }
 const showDelete = function() {
     $('.nav-link').removeClass('active');
     $('#deleteBtn').addClass('active');
+    $( '.delete' ).on( 'click', deleteContact )
     $('.main').show();
     $('.delete').show();
     $('.add').hide();
@@ -69,13 +71,13 @@ $('#verifyBtn').on('click', showVerify)
 
 
 // Function that takes an object with three properties and creates the HTML for a *Bootstrap* card that will be in a card deck
-const cardHTMLMaker = function(contactObj) {
-    const cardHTML = `<div class="card col-10 col-lg-5 col-md-8 m-3 border-0 float-left shadow p-3 bg-white rounded">
+const cardHTMLMaker = function( contactObj, index ) {
+    const cardHTML = `<div id=${index.toString()} class="card col-10 col-lg-5 col-md-8 m-3 border-0 float-left shadow p-3 bg-white rounded">
  <div class="card-body">
  <h5 class="card-title">${contactObj.name}</h5>
  <p class="card-text"><strong>Office Number: </strong>${contactObj.officeNum}</p>
  <p class="card-text"><strong>Phone Number: </strong>${contactObj.phoneNum}</p>
- <a href="#" class="btn btn-primary delete">Delete</a>
+ <a href="#" id=${index.toString()} class="btn btn-primary delete">Delete</a>
  </div>
 </div>`;
     return cardHTML
@@ -84,7 +86,7 @@ const cardHTMLMaker = function(contactObj) {
 // For each object in the employee list, run cardHTMLMaker and append the empList div in index
 const appendList = function(employeeList) {
     for (i = 0; i < employeeList.length; i++) {
-    $('.empList').append( cardHTMLMaker( employeeList[i] ) );
+    $('.empList').append( cardHTMLMaker( employeeList[i], i ) );
     };
 }
 
@@ -132,7 +134,7 @@ const doAdd = function() {
     let phoneNum = $('#addPhoneNum').val();
     let object = {name: name, officeNum: officeNum, phoneNum: phoneNum,};
     employeeList.push(object);
-    $('.empList').append( cardHTMLMaker( object ) );
+    $('.empList').append( cardHTMLMaker( object , employeeList.length-1) );
     $('#addName').val('');
     $('#addOfficeNum').val('');
     $('#addPhoneNum').val('');
@@ -140,10 +142,26 @@ const doAdd = function() {
     successAlert('added a new contact.');
 }
 
-
 // add event listener to "Add" Button for add input form
 $('#addSubmitBtn').on('click', doAdd)
 
 
+
 // When delete is clicked, remove that object from employeeList and update HTML
-// $('.deleteBtn').on('click', )
+const deleteContact = function(event) {
+    event.preventDefault();
+    const index = parseInt(event.target.id, 10);
+    employeeList.splice(index, 1);
+    $('.empList').empty();
+    appendList(employeeList);
+    $( '.delete' ).on( 'click', deleteContact )
+}
+
+// add event listener
+$( '.delete' ).on( 'click', deleteContact )
+
+
+
+//
+// Note to self ... mic the room (div) .. not the button.  $('#div').on('click', '.button', function )
+//
