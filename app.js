@@ -17,6 +17,7 @@ const homePage = $('#nav').show();
 const showView = function() {
     $('.main').show();
     $('.add').hide();
+    $('.delete').hide();
     $('.verify').hide();
     $('.nav-link').removeClass('active');
     $('#viewBtn').addClass('active')
@@ -26,12 +27,14 @@ const showAdd = function() {
     $('#addBtn').addClass('active');
     $('.main').show();
     $('.add').show();
+    $('.delete').hide();
     $('.verify').hide();
 }
 const showDelete = function() {
     $('.nav-link').removeClass('active');
     $('#deleteBtn').addClass('active');
     $('.main').show();
+    $('.delete').show();
     $('.add').hide();
     $('.verify').hide();
 }
@@ -40,6 +43,7 @@ const showUpdate = function() {
     $('#updateBtn').addClass('active');
     $('.main').show();
     $('.add').hide();
+    $('.delete').hide();
     $('.verify').hide();
 }
 const showVerify = function() {
@@ -47,6 +51,7 @@ const showVerify = function() {
     $('#verifyBtn').addClass('active');
     $('.main').show();
     $('.add').hide();
+    $('.delete').hide();
     $('.verify').show();
 }
 
@@ -70,6 +75,7 @@ const cardHTMLMaker = function(contactObj) {
  <h5 class="card-title">${contactObj.name}</h5>
  <p class="card-text"><strong>Office Number: </strong>${contactObj.officeNum}</p>
  <p class="card-text"><strong>Phone Number: </strong>${contactObj.phoneNum}</p>
+ <a href="#" class="btn btn-primary delete">Delete</a>
  </div>
 </div>`;
     return cardHTML
@@ -89,10 +95,12 @@ appendList(employeeList)
 // Main Div in Index HTML to alert "Great! You successfully updated the contact"
 // Make alert dismissible and fade out
 const successAlert = function(action) {
-    $('.main').prepend( `<div class="alert alert-success alert-dismissible fade in">
- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
- <strong>Great!</strong> You successfully ${action}.
-</div>`);
+    $('.main').prepend( `<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Holy guacamole!</strong> You just ${action}.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>`);
 }
 
 // Create the input form to Add new contacts to the database
@@ -116,20 +124,26 @@ const showAddForm = function() {
 
 showAddForm();
 
-// Create doAdd function to create a new employee and append the employeeList 
+// Create doAdd function to create a new employee and append the employee list 
 const doAdd = function() {
-    console.log(document.getElementById('#addName'));
-    console.log(document.getElementById('addOfficeNum'));
-    console.log(document.getElementById('addPhoneNum'));
-    // let name = document.getElementById('#addName').value;
-    // let officeNum = document.getElementById('#addOfficeNum').value;
-    // let phoneNum = document.getElementById('#addPhoneNum').value;
-    // let object = {name: name, officeNum: officeNum, phoneNum: phoneNum,};
-    // appendList(object);
-    successAlert('added a new contact.');
+    event.preventDefault();
+    let name = $('#addName').val();
+    let officeNum = $('#addOfficeNum').val();
+    let phoneNum = $('#addPhoneNum').val();
+    let object = {name: name, officeNum: officeNum, phoneNum: phoneNum,};
+    employeeList.push(object);
+    $('.empList').append( cardHTMLMaker( object ) );
+    $('#addName').val('');
+    $('#addOfficeNum').val('');
+    $('#addPhoneNum').val('');
     showView();
+    successAlert('added a new contact.');
 }
 
 
 // add event listener to "Add" Button for add input form
-// $('#addSubmitBtn').on('click', doAdd)
+$('#addSubmitBtn').on('click', doAdd)
+
+
+// When delete is clicked, remove that object from employeeList and update HTML
+// $('.deleteBtn').on('click', )
