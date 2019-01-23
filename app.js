@@ -18,6 +18,8 @@ const showView = function() {
     $('.main').show();
     $('.add').hide();
     $('.delete').hide();
+    $('.update').hide();
+    $('.updateForm').hide();
     $('.verify').hide();
     $('.nav-link').removeClass('active');
     $('#viewBtn').addClass('active')
@@ -29,6 +31,8 @@ const showAdd = function() {
     $('.add').show();
     $('#addSubmitBtn').on('click', doAdd)
     $('.delete').hide();
+    $('.update').hide();
+    $('.updateForm').hide();
     $('.verify').hide();
 }
 const showDelete = function() {
@@ -37,15 +41,20 @@ const showDelete = function() {
     $( '.delete' ).on( 'click', deleteContact )
     $('.main').show();
     $('.delete').show();
+    $('.update').hide();
+    $('.updateForm').hide();
     $('.add').hide();
     $('.verify').hide();
 }
 const showUpdate = function() {
     $('.nav-link').removeClass('active');
     $('#updateBtn').addClass('active');
+    $('.update').on( 'click', showUpdateForm );
     $('.main').show();
     $('.add').hide();
     $('.delete').hide();
+    $('.update').show();
+    $('.updateForm').hide();
     $('.verify').hide();
 }
 const showVerify = function() {
@@ -54,6 +63,8 @@ const showVerify = function() {
     $('.main').show();
     $('.add').hide();
     $('.delete').hide();
+    $('.update').hide();
+    $('.updateForm').hide();
     $('.verify').show();
 }
 
@@ -77,7 +88,22 @@ const cardHTMLMaker = function( contactObj, index ) {
  <h5 class="card-title">${contactObj.name}</h5>
  <p class="card-text"><strong>Office Number: </strong>${contactObj.officeNum}</p>
  <p class="card-text"><strong>Phone Number: </strong>${contactObj.phoneNum}</p>
+ <form class='updateForm' id=${'uf'+index}>
+ <div class="form-row">
+      <div class="col">
+        <input type="text" id="n${index.toString()}" class="form-control" placeholder="Name">
+      </div>
+      <div class="col">
+        <input type="text" id="o${index.toString()}" class="form-control" placeholder="Office Num">
+      </div>
+      <div class="col">
+        <input type="text" id="p${index.toString()}" class="form-control" placeholder="Phone Number">
+      </div>
+      <button type="submit" id="${index.toString()}" class="btn btn-primary updateSubmit">Update</button>
+ </div>
+</form>
  <a href="#" id=${index.toString()} class="btn btn-primary delete">Delete</a>
+ <a href="#" id=${index.toString()} class="btn btn-primary update ${index.toString()}">Update</a>
  </div>
 </div>`;
     return cardHTML
@@ -133,6 +159,7 @@ const doAdd = function() {
     let officeNum = $('#addOfficeNum').val();
     let phoneNum = $('#addPhoneNum').val();
     let object = {name: name, officeNum: officeNum, phoneNum: phoneNum,};
+    console.log(object);
     employeeList.push(object);
     $('.empList').append( cardHTMLMaker( object , employeeList.length-1) );
     $('#addName').val('');
@@ -154,12 +181,41 @@ const deleteContact = function(event) {
     employeeList.splice(index, 1);
     $('.empList').empty();
     appendList(employeeList);
-    $( '.delete' ).on( 'click', deleteContact )
+    showView();
+    successAlert('deleted a contact')
 }
 
-// add event listener
-$( '.delete' ).on( 'click', deleteContact )
+const doUpdate = function(event) {
+    event.preventDefault();
+    const index = parseInt(event.target.id, 10);
+    console.log(index);
+    console.log(event.target);
+    let name = $('#n'+index).val();
+    let officeNum = $('#o'+index).val();
+    let phoneNum = $('#p'+index).val();
+    let object = {name: name, officeNum: officeNum, phoneNum: phoneNum,};
+    console.log(object);
+    employeeList[index] = object;
+    $('.empList').empty();
+    appendList(employeeList);
+    showView();
+    successAlert('updated a contact.')
 
+}
+
+// When Update button is clicked for a given card. show update form for that card.
+const showUpdateForm = function(event) {
+    event.preventDefault();
+    const index = parseInt(event.target.id, 10);
+    formID = '#uf' + index;
+    $('.update').hide();
+    $(formID).show();
+    $('.updateSubmit').on('click', doUpdate)
+}
+
+// add event listeners for delete and update buttons
+$( '.delete' ).on( 'click', deleteContact );
+$('.update').on( 'click', showUpdateForm );
 
 
 //
