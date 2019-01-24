@@ -16,6 +16,7 @@ const homePage = $('#nav').show();
 
 const showView = function() {
     $('.main').show();
+    $('.empList').show();
     $('.add').hide();
     $('.delete').hide();
     $('.update').hide();
@@ -23,10 +24,12 @@ const showView = function() {
     $('.verify').hide();
     $('.nav-link').removeClass('active');
     $('#viewBtn').addClass('active')
+
 }
 const showAdd = function() {
     $('.nav-link').removeClass('active');
     $('#addBtn').addClass('active');
+    $('.empList').show();
     $('.main').show();
     $('.add').show();
     $('#addSubmitBtn').on('click', doAdd)
@@ -40,6 +43,7 @@ const showDelete = function() {
     $('#deleteBtn').addClass('active');
     $( '.delete' ).on( 'click', deleteContact )
     $('.main').show();
+    $('.empList').show();
     $('.delete').show();
     $('.update').hide();
     $('.updateForm').hide();
@@ -51,6 +55,7 @@ const showUpdate = function() {
     $('#updateBtn').addClass('active');
     $('.update').on( 'click', showUpdateForm );
     $('.main').show();
+    $('.empList').show();
     $('.add').hide();
     $('.delete').hide();
     $('.update').show();
@@ -60,7 +65,9 @@ const showUpdate = function() {
 const showVerify = function() {
     $('.nav-link').removeClass('active');
     $('#verifyBtn').addClass('active');
+    $('#verifySubmitBtn').on('click', verifyContact );
     $('.main').show();
+    $('.empList').hide();
     $('.add').hide();
     $('.delete').hide();
     $('.update').hide();
@@ -203,7 +210,7 @@ const doUpdate = function(event) {
 
 }
 
-// When Update button is clicked for a given card. show update form for that card.
+// When Update button is clicked for a given card. show update Form for that card.
 const showUpdateForm = function(event) {
     event.preventDefault();
     const index = parseInt(event.target.id, 10);
@@ -221,3 +228,35 @@ $('.update').on( 'click', showUpdateForm );
 //
 // Note to self ... mic the room (div) .. not the button.  $('#div').on('click', '.button', function )
 //
+
+// When people navigate to the Verify tab ... hide the empList and show the Verify Form
+// 
+
+const renderVerifyForm = function() {
+    $('.verify').append(`<form id="verifyForm">
+ <div class="form-row">
+      <div class="col">
+        <input type="text" id="verifyName" class="form-control" placeholder="Full Name">
+      </div>
+      <button type="submit" id="verifySubmitBtn" class="btn btn-primary">Find Contact</button>
+ </div>
+</form>`);
+};
+
+renderVerifyForm();
+
+const verifyContact = function(event) {
+    event.preventDefault();
+    let name = $('#verifyName').val(); // store the input name that we need to check in name 
+    // for each card. show if name matches requested name 
+    let message = false;
+    for ( i = 0; i < employeeList.length; i++) {
+        if ( employeeList[i].name == name ) {
+           message = true;
+           successAlert('verified a contact');
+        }
+    }
+    if ( message == false ) {alert('Sorry, try again.')};
+    showView();
+};
+
